@@ -1,0 +1,44 @@
+
+// 1. Install mysql
+
+// 2. Initialize mysql
+sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+// 3. Create root user
+sudo mysql
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'your_secure_password';
+FLUSH PRIVILEGES;
+
+then use -> mysql -u root -p
+
+// 4. Create DB
+CREATE DATABASE eternal_moments;
+
+// 5. Create tables
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'member', 'normal') DEFAULT 'normal',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS contacts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+// 6. Display Information
+SHOW TABLES;
+DESCRIBE users;
+
+// 7. Run Code
+php -S localhost:8000
+
+go to localhost:8000 on browser
+
